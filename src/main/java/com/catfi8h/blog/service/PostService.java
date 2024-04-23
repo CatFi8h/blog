@@ -21,9 +21,9 @@ public class PostService {
 	}
 	
 	public void insert(PostDTO postDTO) {
-		System.out.println(postDTO.getBody() + " " +  postDTO.getTitle());
+		System.out.println(postDTO.getBody() + ' ' +  postDTO.getTitle());
 		Post post = postMapper.postToPostDTO(postDTO);
-		System.out.println(post.getBody() + " " +  post.getTitle());
+		System.out.println(post.getBody() + ' ' +  post.getTitle());
 		postRepository.save(post);
 	}
 }
