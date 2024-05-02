@@ -2,7 +2,7 @@ package com.catfi8h.blog.controller.mapper;
 
 import com.catfi8h.blog.controller.dto.GetPostDto;
 import com.catfi8h.blog.controller.dto.InsertPostDto;
-import com.catfi8h.blog.entities.Post;
+import com.catfi8h.blog.repository.entities.Post;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 

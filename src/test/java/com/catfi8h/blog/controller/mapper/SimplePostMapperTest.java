@@ -1,7 +1,7 @@
 package com.catfi8h.blog.controller.mapper;
 
 import com.catfi8h.blog.controller.dto.InsertPostDto;
-import com.catfi8h.blog.entities.Post;
+import com.catfi8h.blog.repository.entities.Post;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

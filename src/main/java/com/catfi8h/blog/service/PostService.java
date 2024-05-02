@@ -3,7 +3,7 @@ package com.catfi8h.blog.service;
 import com.catfi8h.blog.controller.dto.GetPostDto;
 import com.catfi8h.blog.controller.dto.InsertPostDto;
 import com.catfi8h.blog.controller.mapper.SimplePostMapper;
-import com.catfi8h.blog.entities.Post;
+import com.catfi8h.blog.repository.entities.Post;
 import com.catfi8h.blog.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -19,6 +19,9 @@ public class PostService {
 	public final PostRepository postRepository;
 	public final SimplePostMapper postMapper;
 	
+	public Optional<Post> getPostById(Long id) {
+		return postRepository.findById(id);
+	}
 	
 	public List<GetPostDto> getAllPosts() {
 		return postRepository.findAll().stream().map(postMapper::getPostToDto).toList();

@@ -12,28 +12,24 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.PriorityQueue;
 
-@RestController("/")
+@RestController("/my")
 public class BlogController {
-	
+
 	private final PostService postService;
-	
+
 	public BlogController(PostService postService) {
 		this.postService = postService;
 	}
-	
+
 	@GetMapping("/posts")
 	public List<GetPostDto> getAllPosts() {
 //		PriorityQueue<Integer> integers = new PriorityQueue<>();
 		return postService.getAllPosts();
 	}
-	
+
 	@PostMapping(value = "/post", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String createPost(@RequestBody InsertPostDto dto) {
 		postService.insert(dto);
-		return null;
-	}
-	@GetMapping("/")
-	public String init() {
-		return "init";
+		return "Created";
 	}
 }
