@@ -13,6 +13,7 @@
             <div class="col-md-8">
                 <div class="post">
                     <h2 class="text-center" th:text="${post.getTitle()}">Title</h2>
+                    <h5 th:text="'Wirtten by ' + ${post.getAuthor()}">Account First Name</h5>
                     <h5 class="text-muted" th:text="${post.getCreateTime()}">Created At</h5>
                     <p th:text="${post.getBody()}">Body</p>
                 </div>

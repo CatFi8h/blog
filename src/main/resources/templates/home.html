@@ -14,6 +14,7 @@
                 <h2><a th:href="@{'/post/' + ${post.id}}"
                         th:text="${post.title}">Title</a>
                 </h2>
+                <h5 th:text="'Wirtten by ' + ${post.getAuthor()}">Account First Name</h5>
                 <h5 th:text="'Published On ' + ${post.createTime}">
                     Created At
                 </h5>
