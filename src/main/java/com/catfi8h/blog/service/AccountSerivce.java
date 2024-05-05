@@ -32,4 +32,9 @@ public class AccountSerivce {
 			return null;
 		}
 	}
+	
+	public Optional<AccountDto> findByEmail(String email) {
+		Optional<Account> accountOpt = accountRepository.findOneByEmail(email);
+		return accountOpt.map(simpleAccountMapper::accountToDto);
+	}
 }

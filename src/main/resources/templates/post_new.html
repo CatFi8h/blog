@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog :: Create Post</title>
+</head>
+<body>
+    <div class="container">
+        <a href="/">Home</a>
+        <form action="#" th:action="@{'/post/new'}"
+                         th:object="${post}"
+                         method="POST">
+            <input type="hidden" th:field="*{email}"/>
+<!--            <input type="hidden" th:field="*{createdAt}"/>-->
+            <h2>Write new Post</h2>
+            <div>
+                <label for="new-post-title">Title</label>
+                <input id="new-post-title" type="text" th:field="*{title}" placeholder="Title"/>
+            </div>
+            <div>
+                <label for="new-post-body">Body</label>
+                <input id="new-post-body" type="text" th:field="*{body}" placeholder="Write plot here . . . "/>
+            </div>
+            <button type="submit">Publish Post</button>
+            <hr/>
+        </form>
+    </div>
+</body>
+</html>

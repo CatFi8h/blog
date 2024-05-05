@@ -12,5 +12,5 @@ import lombok.Setter;
 public class InsertPostDto {
 	private String title;
 	private String body;
-	private AccountDto account;
+	private String email;
 }

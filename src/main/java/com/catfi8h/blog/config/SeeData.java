@@ -6,7 +6,6 @@ import com.catfi8h.blog.controller.dto.InsertPostDto;
 import com.catfi8h.blog.service.AccountSerivce;
 import com.catfi8h.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -39,16 +38,16 @@ public class SeeData implements CommandLineRunner {
 						"user");
 			accountSerivce.createAccount(admin);
 			accountSerivce.createAccount(user);
-			
+
 			InsertPostDto post1 = new InsertPostDto();
 			post1.setTitle("Title1");
 			post1.setBody("Body1");
-			post1.setAccount(admin);
+			post1.setEmail("admin.admin@domain.com");
 			
 			InsertPostDto post2 = new InsertPostDto();
 			post2.setTitle("Title2");
 			post2.setBody("Body2");
-			post2.setAccount(user);
+			post2.setEmail("user.user@domain.com");
 			
 			postService.insert(post1);
 			postService.insert(post2);

@@ -1,6 +1,5 @@
 package com.catfi8h.blog.repository.entities;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,7 +28,7 @@ public class Post {
 	private Date creationDate;
 	
 	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
 	private Account account;
 	

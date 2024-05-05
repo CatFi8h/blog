@@ -3,6 +3,8 @@ package com.catfi8h.blog.service;
 import com.catfi8h.blog.controller.dto.GetPostDto;
 import com.catfi8h.blog.controller.dto.InsertPostDto;
 import com.catfi8h.blog.controller.mapper.SimplePostMapper;
+import com.catfi8h.blog.repository.AccountRepository;
+import com.catfi8h.blog.repository.entities.Account;
 import com.catfi8h.blog.repository.entities.Post;
 import com.catfi8h.blog.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +18,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class PostService {
-	public final PostRepository postRepository;
-	public final SimplePostMapper postMapper;
+	private final PostRepository postRepository;
+	private final SimplePostMapper postMapper;
+	private final AccountRepository accountRepository;
 	
 	public Optional<Post> getPostById(Long id) {
 		return postRepository.findById(id);
@@ -27,11 +30,18 @@ public class PostService {
 		return postRepository.findAll().stream().map(postMapper::getPostToDto).toList();
 	}
 	
-	public void insert(InsertPostDto postDTO) {
-//		System.out.println(postDTO.getBody() + ' ' +  postDTO.getTitle());
-		Post post = postMapper.insertDtoToPost(postDTO);
-//		System.out.println(post.getBody() + ' ' +  post.getTitle());
-		post.setCreationDate(Date.from(Instant.now()));
-		postRepository.save(post);
+	public Long insert(InsertPostDto dto) {
+		
+		Optional<Account> oneByEmail = accountRepository.findOneByEmail(dto.getEmail());
+		if (oneByEmail.isPresent()) {
+			Post post = new Post();
+			post.setBody(dto.getBody());
+			post.setTitle(dto.getTitle());
+			post.setCreationDate(Date.from(Instant.now()));
+			post.setAccount(oneByEmail.get());
+			return postRepository.save(post).getId();
+		} else {
+			throw new IllegalArgumentException();
+		}
 	}
 }
