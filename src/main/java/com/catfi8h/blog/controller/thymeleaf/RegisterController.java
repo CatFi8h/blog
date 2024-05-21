@@ -1,7 +1,7 @@
 package com.catfi8h.blog.controller.thymeleaf;
 
 import com.catfi8h.blog.controller.dto.AccountDto;
-import com.catfi8h.blog.service.AccountSerivce;
+import com.catfi8h.blog.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RegisterController {
 	
-	private final AccountSerivce accountSerivce;
+	private final AccountService accountService;
 	
 	@GetMapping("/register")
 	public String register(Model model) {
@@ -24,7 +24,7 @@ public class RegisterController {
 	@PostMapping("/register")
 	public String registerNewUser(@ModelAttribute AccountDto account) {
 		account.setRole("Admin");
-		accountSerivce.createAccount(account);
+		accountService.createAccount(account);
 		return "redirect:/login";
 	}
 }

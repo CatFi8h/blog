@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -18,7 +19,10 @@ import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @NoArgsConstructor
@@ -43,4 +47,19 @@ public class Account {
 	
 	@OneToMany(mappedBy = "account")
 	private List<Post> posts;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "account_authority", joinColumns = {@JoinColumn(name = "account_id", referencedColumnName = "id")},
+	inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
+	private Set<Authority> authority = new HashSet<>();
+	
+	@Override
+	public String toString() {
+		return "Account{" +
+				       "firstName='" + firstName + '\'' +
+				       ", lastName='" + lastName + '\'' +
+				       ", authority=" + authority +
+				       ", email='" + email + '\'' +
+				       '}';
+	}
 }

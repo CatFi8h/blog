@@ -5,7 +5,7 @@ import com.catfi8h.blog.controller.dto.GetPostDto;
 import com.catfi8h.blog.controller.dto.InsertPostDto;
 import com.catfi8h.blog.controller.mapper.SimplePostMapper;
 import com.catfi8h.blog.repository.entities.Post;
-import com.catfi8h.blog.service.AccountSerivce;
+import com.catfi8h.blog.service.AccountService;
 import com.catfi8h.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ public class PostController {
 	
 	private final PostService postService;
 	private final SimplePostMapper simplePostMapper;
-	private final AccountSerivce accountSerivce;
+	private final AccountService accountService;
 	
 	@GetMapping("/post/{id}")
 	public String post(@PathVariable Long id, Model model) {
@@ -40,7 +40,7 @@ public class PostController {
 	
 	@GetMapping("/post/new")
 	public String createNewPost(Model model) {
-		Optional<AccountDto> accountOpt = accountSerivce.findByEmail("user.user@domain.com");
+		Optional<AccountDto> accountOpt = accountService.findDtoByEmail("user.user@domain.com");
 		if (accountOpt.isPresent()) {
 			InsertPostDto insertPostDto = new InsertPostDto();
 			insertPostDto.setEmail(accountOpt.get().getEmail());

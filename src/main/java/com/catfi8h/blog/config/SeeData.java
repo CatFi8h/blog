@@ -3,7 +3,9 @@ package com.catfi8h.blog.config;
 import com.catfi8h.blog.controller.dto.AccountDto;
 import com.catfi8h.blog.controller.dto.GetPostDto;
 import com.catfi8h.blog.controller.dto.InsertPostDto;
-import com.catfi8h.blog.service.AccountSerivce;
+import com.catfi8h.blog.repository.AuthorityRepository;
+import com.catfi8h.blog.repository.entities.Authority;
+import com.catfi8h.blog.service.AccountService;
 import com.catfi8h.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -16,7 +18,8 @@ import java.util.List;
 public class SeeData implements CommandLineRunner {
 	
 	private final PostService postService;
-	private final AccountSerivce accountSerivce;
+	private final AccountService accountService;
+	private final AuthorityRepository authorityRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -24,20 +27,30 @@ public class SeeData implements CommandLineRunner {
 		
 		
 		if(posts.isEmpty()){
+			
+			Authority authorityUser = new Authority();
+			authorityUser.setName("ROLE_USER");
+			authorityRepository.save(authorityUser);
+			
+			Authority authorityAdmin = new Authority();
+			authorityAdmin.setName("ROLE_ADMIN");
+			authorityRepository.save(authorityAdmin);
+		
 			AccountDto admin = new AccountDto("admin.admin@domain.com",
 					"admin",
 					"Admin",
 					"Admin",
 					"password",
-						"admin");
+						"ROLE_ADMIN");
+			
 			AccountDto user = new AccountDto("user.user@domain.com",
 					"user",
 					"User",
 					"User",
 					"password",
-						"user");
-			accountSerivce.createAccount(admin);
-			accountSerivce.createAccount(user);
+						"ROLE_USER");
+			accountService.createAccount(admin);
+			accountService.createAccount(user);
 
 			InsertPostDto post1 = new InsertPostDto();
 			post1.setTitle("Title1");

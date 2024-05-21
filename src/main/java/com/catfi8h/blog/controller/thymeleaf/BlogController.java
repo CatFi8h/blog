@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
+
 @RequiredArgsConstructor
 @Controller
 public class BlogController {
 	
 	private final PostService postService;
 	
-	@GetMapping("/")
+	@GetMapping(value = "/")
 	public String home(Model model) {
 		List<GetPostDto> allPosts = postService.getAllPosts();
 		model.addAttribute("posts", allPosts);
